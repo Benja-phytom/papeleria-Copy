@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hijos del Taco - Menú Oficial</title>
+
+  <!-- FUENTES E ÍCONOS -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #e63946;
+      --secondary-color: #ffb703;
+      --dark-color: #121212;
+      --card-bg: #1e1e1e;
+      --bg-color: #141414;
+      --text-color: #f8f9fa;
+      --text-muted: #a0a0a0;
+      --gray-light: #2a2a2a;
+      --whatsapp-color: #25d366;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      padding-bottom: 140px;
+    }
+
+    /* ANIMACIÓN DE BIENVENIDA (SPLASH SCREEN) */
+    #splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--dark-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 0.6s ease-in-out 2s forwards;
+    }
+
+    #splash-screen img {
+      width: 170px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid var(--secondary-color);
+      animation: pulse 1.2s infinite ease-in-out;
+      box-shadow: 0 0 30px rgba(255, 183, 3, 0.4);
+    }
+
+    #splash-screen h2 {
+      color: var(--secondary-color);
+      margin-top: 18px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(0.95); }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* ENCABEZADO */
+    header {
+      background-color: var(--dark-color);
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 2px solid var(--secondary-color);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-logo img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--secondary-color);
+    }
+
+    .header-logo h1 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 15px;
+    }
+
+    /* BUSCADOR */
+    .search-box {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 14px 45px 14px 18px;
+      border-radius: 30px;
+      border: 1px solid var(--gray-light);
+      background-color: #222;
+      color: white;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--secondary-color);
+    }
+
+    .search-box i {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--secondary-color);
+      font-size: 1.1rem;
+    }
+
+    /* TÍTULO DE CATEGORÍA */
+    .category-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--secondary-color);
+      margin: 35px 0 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid var(--gray-light);
+      padding-bottom: 8px;
+    }
+
+    /* CUADRÍCULA Y TARJETAS DE PRODUCTOS */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--gray-light);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+      height: 100%;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .product-img-wrapper {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      background-color: #2b2b2b;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .product-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      flex-grow: 1;
+      line-height: 1.45;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .product-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--secondary-color);
+    }
+
+    .btn-add {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      transition: background 0.3s, transform 0.1s;
+    }
+
+    .btn-add:hover {
+      background-color: #b01a25;
+    }
+
+    .btn-add:active {
+      transform: scale(0.96);
+    }
+
+    /* BOTÓN FLOTANTE DEL CARRITO */
+    .cart-float-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: var(--whatsapp-color);
+      color: white;
+      border: 2px solid #ffffff;
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 990;
+      transition: transform 0.2s;
+    }
+
+    .cart-float-btn:hover {
+      transform: scale(1.04);
+    }
+
+    .cart-badge {
+      background-color: #111;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    /* MODALES */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #1c1c1c;
+      width: 100%;
+      max-width: 600px;
+      border-top-left-radius: 25px;
+      border-top-right-radius: 25px;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 22px;
+      color: white;
+      border-top: 3px solid var(--secondary-color);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--gray-light);
+      padding-bottom: 12px;
+      margin-bottom: 15px;
+    }
+
+    .close-btn {
+      font-size: 1.6rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    /* CARRITO ITEMS */
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--gray-light);
+      padding-bottom: 10px;
+    }
+
+    .item-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qty-btn {
+      background: var(--gray-light);
+      color: white;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sauce-list {
+      font-size: 0.78rem;
+      color: var(--secondary-color);
+      margin-top: 2px;
+      display: block;
+    }
+
+    /* ELEMENTOS DE SELECCIÓN EN MODALES */
+    .sauce-options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .sauce-checkbox-label {
+      background-color: #2b2b2b;
+      padding: 10px 12px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      border: 1px solid var(--gray-light);
+    }
+
+    .sauce-checkbox-label input[type="checkbox"] {
+      accent-color: var(--secondary-color);
+      width: 16px;
+      height: 16px;
+    }
+
+    .stepper-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #181818;
+      padding: 4px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--gray-light);
+    }
+
+    .stepper-control .qty-btn {
+      width: 24px;
+      height: 24px;
+      font-size: 0.85rem;
+      background: var(--primary-color);
+    }
+
+    .stepper-control span {
+      font-weight: 700;
+      min-width: 16px;
+      text-align: center;
+    }
+
+    .sauce-limit-info {
+      font-size: 0.85rem;
+      color: var(--secondary-color);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .modal-section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin: 18px 0 10px 0;
+      border-bottom: 1px dashed var(--gray-light);
+      padding-bottom: 4px;
+    }
+
+    .option-group {
+      margin: 15px 0;
+    }
+
+    .option-group label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: var(--secondary-color);
+    }
+
+    .option-group select, .option-group input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--gray-light);
+      background-color: #2b2b2b;
+      color: white;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .option-group input:focus, .option-group select:focus {
+      border-color: var(--secondary-color);
+    }
+
+    .summary-box {
+      background-color: #111;
+      padding: 14px;
+      border-radius: 12px;
+      margin-top: 15px;
+      border: 1px solid var(--gray-light);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .total-row {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--secondary-color);
+      border-top: 1px solid var(--gray-light);
+      padding-top: 8px;
+      margin-top: 6px;
+    }
+
+    .btn-send-whatsapp {
+      width: 100%;
+      background-color: var(--whatsapp-color);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-top: 18px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* PIE DE PÁGINA */
+    footer {
+      background-color: var(--dark-color);
+      color: white;
+      padding: 30px 20px 40px 20px;
+      margin-top: 50px;
+      text-align: center;
+      border-top: 1px solid var(--gray-light);
+    }
+
+    .footer-address {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 8px 0 15px 0;
+      line-height: 1.4;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 15px 0;
+    }
+
+    .footer-links a {
+      color: white;
+      font-size: 1.8rem;
+      transition: color 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .footer-links a:hover {
+      color: #e1306c;
+      transform: scale(1.1);
+    }
+
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--secondary-color);
+      color: #111;
+      padding: 10px 22px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 700;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+
+    .map-btn:hover {
+      background: #e0a200;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANIMACIÓN DE BIENVENIDA -->
+  <div id="splash-screen">
+    <img src="https://i.postimg.cc/9XRNQsDT/Logo-Tacos.jpg" alt="Logo Hijos del Taco">
+    <h2>Hijos del Taco</h2>
+  </div>
+
+  <!-- ENCABEZADO -->
+  <header>
+    <div class="header-logo">
+      <img src="https://i.postimg.cc/9XRNQsDT/Logo-Tacos.jpg" alt="Logo Hijos del Taco">
+      <h1>Hijos del Taco</h1>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- BUSCADOR EN TIEMPO REAL -->
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="¿Qué se te antoja hoy? (ej. Asada, Hamburguesa, Paquete)..." onkeyup="filterProducts()">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+
+    <!-- SECCIÓN 1: ASADA AL CARBÓN Y ESPECIALIDADES -->
+    <div class="category-title">
+      <i class="fa-solid fa-fire-flame-curved"></i> Asada al Carbón y Especialidades
+    </div>
+
+    <div class="product-grid">
+      <!-- Tacos de Asada -->
+      <div class="product-card" data-name="Tacos de asada">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/6QPfs5Lq/Whats-App-Image-2026-10-02-at-10-15-59-PM.jpg" class="product-img" alt="Tacos de Asada">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Tacos de Asada</div>
+          <div class="product-desc">Doble tortilla de maíz con 100% guacamole, cebolla y cilantro.</div>
+          <div class="product-footer">
+            <span class="product-price">$10.00</span>
+            <button class="btn-add" onclick="addToCart('Tacos de Asada', 10)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Taco de Longaniza -->
+      <div class="product-card" data-name="Taco de longaniza">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/Znf05wnR/Whats-App-Image-2026-10-03-at-1-06-48-PM-(1).jpg" class="product-img" alt="Taco de Longaniza">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Taco de Longaniza</div>
+          <div class="product-desc">Longaniza a la parrilla, cebolla, cilantro y guacamole.</div>
+          <div class="product-footer">
+            <span class="product-price">$10.00</span>
+            <button class="btn-add" onclick="addToCart('Taco de Longaniza', 10)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Taco Campechano -->
+      <div class="product-card" data-name="Taco campechano">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/Z5v0JFSR/Whats-App-Image-2026-10-03-at-1-06-48-PM.jpg" class="product-img" alt="Taco Campechano">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Taco Campechano</div>
+          <div class="product-desc">Combinación de carne asada y longaniza, cebolla, cilantro y guacamole.</div>
+          <div class="product-footer">
+            <span class="product-price">$10.00</span>
+            <button class="btn-add" onclick="addToCart('Taco Campechano', 10)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Taco de Cochinita Pibil -->
+      <div class="product-card" data-name="Taco de cochinita pibil">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/7h4ZVpG0/Whats-App-Image-2026-10-03-at-1-06-48-PM-(3).jpg" class="product-img" alt="Taco de Cochinita Pibil">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Taco de Cochinita Pibil</div>
+          <div class="product-desc">Deliciosa cochinita pibil artesanal, acompañada de cebolla y cilantro.</div>
+          <div class="product-footer">
+            <span class="product-price">$13.00</span>
+            <button class="btn-add" onclick="addToCart('Taco de Cochinita Pibil', 13)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cemita Asada -->
+      <div class="product-card" data-name="Cemita asada">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/NMjcjBHX/Whats-App-Image-2026-10-03-at-1-06-47-PM-(2).jpg" class="product-img" alt="Cemita Asada">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Cemita Asada</div>
+          <div class="product-desc">Tradicional pan de cemita, guacamole y proteína a elegir.</div>
+          <div class="product-footer">
+            <span class="product-price">$25.00</span>
+            <button class="btn-add" onclick="addToCart('Cemita Asada', 25)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cemita Combinada -->
+      <div class="product-card" data-name="Cemita combinada">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/QxXMWZrs/Whats-App-Image-2026-10-03-at-1-06-48-PM-(2).jpg" class="product-img" alt="Cemita Combinada">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Cemita Combinada</div>
+          <div class="product-desc">Pan de cemita relleno de carne asada, longaniza, cebolla, cilantro y guacamole.</div>
+          <div class="product-footer">
+            <span class="product-price">$25.00</span>
+            <button class="btn-add" onclick="addToCart('Cemita Combinada', 25)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quesadilla de Asada -->
+      <div class="product-card" data-name="Quesadilla de asada">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/2jQhGxJB/Whats-App-Image-2026-10-02-at-10-20-38-PM.jpg" class="product-img" alt="Quesadilla de Asada">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Quesadilla de Asada</div>
+          <div class="product-desc">Tortilla de harina con guacamole (100% aguacate), queso mozzarella, cebolla y cilantro.</div>
+          <div class="product-footer">
+            <span class="product-price">$45.00</span>
+            <button class="btn-add" onclick="addToCart('Quesadilla de Asada', 45)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quesadilla Combinada -->
+      <div class="product-card" data-name="Quesadilla combinada">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/tJdYGXQM/Whats-App-Image-2026-10-03-at-1-06-48-PM-(4).jpg" class="product-img" alt="Quesadilla Combinada">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Quesadilla Combinada</div>
+          <div class="product-desc">Carne asada y longaniza, cebolla, cilantro, queso mozzarella y guacamole en tortilla de harina.</div>
+          <div class="product-footer">
+            <span class="product-price">$45.00</span>
+            <button class="btn-add" onclick="addToCart('Quesadilla Combinada', 45)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Burrito Gigante -->
+      <div class="product-card" data-name="Burrito gigante">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/3r2rDSqz/Whats-App-Image-2026-10-02-at-11-07-22-PM.jpg" class="product-img" alt="Burrito Gigante">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Burrito Gigante</div>
+          <div class="product-desc">Tortilla de harina de 30 cm, frijol refrito, arroz, guacamole, queso mozzarella, cebolla, cilantro y carne asada. 😉😋</div>
+          <div class="product-footer">
+            <span class="product-price">$90.00</span>
+            <button class="btn-add" onclick="addToCart('Burrito Gigante', 90)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 2: HAMBURGUESAS -->
+    <div class="category-title">
+      <i class="fa-solid fa-burger"></i> Hamburguesas
+    </div>
+
+    <div class="product-grid">
+      <!-- Hamburguesa Clásica -->
+      <div class="product-card" data-name="Hamburguesa clasica">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/9QyVxx2b/Whats-App-Image-2026-10-03-at-1-06-47-PM-(3).jpg" class="product-img" alt="Hamburguesa Clásica">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Hamburguesa Clásica</div>
+          <div class="product-desc">Carne jugosa, lechuga, jitomate, cebolla caramelizada, rajas, mostaza, catsup, jamón, tocino y queso amarillo.</div>
+          <div class="product-footer">
+            <span class="product-price">$50.00</span>
+            <button class="btn-add" onclick="addToCart('Hamburguesa Clásica', 50)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hamburguesa Hawaiana -->
+      <div class="product-card" data-name="Hamburguesa hawaiana">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/Fzns41Cf/Whats-App-Image-2026-10-03-at-1-06-47-PM-(6).jpg" class="product-img" alt="Hamburguesa Hawaiana">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Hamburguesa Hawaiana</div>
+          <div class="product-desc">Jamón, queso amarillo, cebolla caramelizada, jitomate, rajas, catsup, mostaza, piña y queso mozzarella.</div>
+          <div class="product-footer">
+            <span class="product-price">$65.00</span>
+            <button class="btn-add" onclick="addToCart('Hamburguesa Hawaiana', 65)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hamburguesa de Boneless -->
+      <div class="product-card" data-name="Hamburguesa de boneless">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/rw4yBV14/Whats-App-Image-2026-10-03-at-1-06-47-PM-(5).jpg" class="product-img" alt="Hamburguesa de Boneless">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Hamburguesa de Boneless</div>
+          <div class="product-desc">150g de boneless, salsa BBQ, cebolla caramelizada, tocino, catsup, rajas y guacamole.</div>
+          <div class="product-footer">
+            <span class="product-price">$75.00</span>
+            <button class="btn-add" onclick="addToCart('Hamburguesa de Boneless', 75)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hamburguesa Especial Hijos -->
+      <div class="product-card" data-name="Hamburguesa especial hijos">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/xC69vcQ2/Whats-App-Image-2026-10-03-at-1-06-47-PM-(4).jpg" class="product-img" alt="Hamburguesa Especial Hijos">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Hamburguesa Especial "Hijos"</div>
+          <div class="product-desc">Jamón, queso amarillo, cebolla caramelizada, jitomate, rajas, catsup, mostaza, longaniza y guacamole.</div>
+          <div class="product-footer">
+            <span class="product-price">$75.00</span>
+            <button class="btn-add" onclick="addToCart('Hamburguesa Especial Hijos', 75)"><i class="fa-solid fa-plus"></i> Agregar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hamburguesa Doble Carne (Con selector Máx 3 Aderezos) -->
+      <div class="product-card" data-name="Hamburguesa doble carne">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/MZ4SzkKC/Whats-App-Image-2026-10-03-at-1-06-48-PM-(9).jpg" class="product-img" alt="Hamburguesa Doble Carne">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Hamburguesa Doble Carne</div>
+          <div class="product-desc">Doble ración de carne 100% casera, jamón, tocino, jitomate, cebolla caramelizada, queso americano, lechuga italiana. Elige hasta 3 aderezos.</div>
+          <div class="product-footer">
+            <span class="product-price">$80.00</span>
+            <button class="btn-add" onclick="openSauceModal('Hamburguesa Doble Carne', 80, ['Catsup', 'Mostaza', 'BBQ', 'Ranch', 'Mayonesa', 'Guacamole', 'Salsa Macha', 'Mango Habanero'])">
+              <i class="fa-solid fa-sliders"></i> Personalizar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 3: PAPAS & BONELESS (Con selector Máx 3 Aderezos) -->
+    <div class="category-title">
+      <i class="fa-solid fa-bowl-food"></i> Papas & Boneless (Elige Máx. 3 Aderezos)
+    </div>
+
+    <div class="product-grid">
+      <!-- Orden de Papas -->
+      <div class="product-card" data-name="Orden de papas">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/Bv3HjwN6/Whats-App-Image-2026-10-03-at-1-06-48-PM-(8).jpg" class="product-img" alt="Orden de Papas">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Orden de Papas a la Francesa</div>
+          <div class="product-desc">300g de papas a la francesa onduladas. Elige hasta 3 aderezos.</div>
+          <div class="product-footer">
+            <span class="product-price">$45.00</span>
+            <button class="btn-add" onclick="openSauceModal('Orden de Papas a la Francesa', 45, ['Catsup', 'Queso Amarillo', 'BBQ', 'Ranch', 'Valentina', 'Salsa Macha', 'Mango Habanero'])">
+              <i class="fa-solid fa-sliders"></i> Personalizar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orden de Boneless -->
+      <div class="product-card" data-name="Orden de boneless">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/SQHryV02/Whats-App-Image-2026-10-03-at-1-06-48-PM-(7).jpg" class="product-img" alt="Orden de Boneless">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Orden de Boneless con Papas</div>
+          <div class="product-desc">150g de boneless jugosos + 300g de papas a la francesa. Elige hasta 3 aderezos.</div>
+          <div class="product-footer">
+            <span class="product-price">$80.00</span>
+            <button class="btn-add" onclick="openSauceModal('Orden de Boneless con Papas', 80, ['Catsup', 'Queso Amarillo', 'BBQ', 'Ranch', 'Guacamole', 'Queso Mozzarella', 'Salsa Macha', 'Mango Habanero'])">
+              <i class="fa-solid fa-sliders"></i> Personalizar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Papas Hijos -->
+      <div class="product-card" data-name="Papas hijos">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/hvmVzWFd/Whats-App-Image-2026-10-03-at-1-06-48-PM-(6).jpg" class="product-img" alt="Papas Hijos">
+        </div>
+        <div class="product-info">
+          <div class="product-title">Papas "Hijos del Taco"</div>
+          <div class="product-desc">100g de carne asada sobre 300g de papas a la francesa. Elige hasta 3 aderezos.</div>
+          <div class="product-footer">
+            <span class="product-price">$80.00</span>
+            <button class="btn-add" onclick="openSauceModal('Papas Hijos del Taco', 80, ['BBQ', 'Queso Amarillo', 'Catsup', 'Ranch', 'Guacamole', 'Mayonesa', 'Salsa Macha'])">
+              <i class="fa-solid fa-sliders"></i> Personalizar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 4: PAQUETES FAMILIARES (Con personalización de Extras y Bebidas integradas) -->
+    <div class="category-title">
+      <i class="fa-solid fa-box-open"></i> Paquetes Familiares
+    </div>
+
+    <div class="product-grid">
+      <!-- 1/2 Kilo de Carne -->
+      <div class="product-card" data-name="Medio kilo de carne 1/2 paquete">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/6QPfs5Lq/Whats-App-Image-2026-10-02-at-10-15-59-PM.jpg" class="product-img" alt="Medio Kilo de Carne">
+        </div>
+        <div class="product-info">
+          <div class="product-title">1/2 Kilo de Carne</div>
+          <div class="product-desc">Incluye: 20 tortillas de maíz, 1 cemita, 1 orden de cebollitas, guacamole, cebolla, cilantro, salsas y limones. Personaliza agregando extras o bebidas.</div>
+          <div class="product-footer">
+            <span class="product-price">$150.00</span>
+            <button class="btn-add" onclick="openPackageModal('Paquete 1/2 Kilo de Carne', 150, '20 tortillas de maíz, 1 cemita, 1 orden de cebollitas, guacamole, cebolla, cilantro, salsas y limones')">
+              <i class="fa-solid fa-sliders"></i> Personalizar Paquete
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kilo de Carne -->
+      <div class="product-card" data-name="Kilo de carne 1kg paquete">
+        <div class="product-img-wrapper">
+          <img src="https://i.postimg.cc/6QPfs5Lq/Whats-App-Image-2026-10-02-at-10-15-59-PM.jpg" class="product-img" alt="Kilo de Carne">
+        </div>
+        <div class="product-info">
+          <div class="product-title">1 Kilo de Carne</div>
+          <div class="product-desc">Incluye: 40 tortillas de maíz, 2 cemitas, 1 orden de cebollitas, guacamole, cebolla, cilantro, salsas y limones. Personaliza agregando extras o bebidas.</div>
+          <div class="product-footer">
+            <span class="product-price">$300.00</span>
+            <button class="btn-add" onclick="openPackageModal('Paquete 1 Kilo de Carne', 300, '40 tortillas de maíz, 2 cemitas, 1 orden de cebollitas, guacamole, cebolla, cilantro, salsas y limones')">
+              <i class="fa-solid fa-sliders"></i> Personalizar Paquete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTÓN FLOTANTE DEL CARRITO -->
+  <button class="cart-float-btn" onclick="openCart()">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span>Ver Pedido</span>
+    <span class="cart-badge" id="cartCount">0</span>
+  </button>
+
+  <!-- MODAL DE ADEREZOS PARA PAPAS, BONELESS Y HAMBURGUESA DOBLE (MÁX. 3) -->
+  <div class="modal-overlay" id="sauceModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="sauceModalTitle"><i class="fa-solid fa-pepper-hot"></i> Personalizar Producto</h3>
+        <button class="close-btn" onclick="closeSauceModal()">&times;</button>
+      </div>
+      
+      <p class="sauce-limit-info" id="sauceCountText">Puedes elegir máximo 3 aderezos (0 de 3 seleccionados)</p>
+
+      <div class="sauce-options-grid" id="sauceContainer"></div>
+
+      <button class="btn-send-whatsapp" style="background-color: var(--primary-color);" onclick="confirmSaucesAndAdd()">
+        <i class="fa-solid fa-check"></i> Confirmar y Agregar
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL DE PERSONALIZACIÓN DE PAQUETE FAMILIAR (EXTRAS Y BEBIDAS INTEGRADOS) -->
+  <div class="modal-overlay" id="packageModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="packageModalTitle"><i class="fa-solid fa-box-open"></i> Personalizar Paquete</h3>
+        <button class="close-btn" onclick="closePackageModal()">&times;</button>
+      </div>
+
+      <p id="packageIncludesText" style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;"></p>
+
+      <!-- SECCIÓN DE EXTRAS Y COMPLEMENTOS -->
+      <div class="modal-section-title"><i class="fa-solid fa-plus-circle"></i> Extras y Complementos Opcionales</div>
+      <div class="sauce-options-grid" id="packageExtrasContainer"></div>
+
+      <!-- SECCIÓN DE BEBIDAS Y REFRESCOS CON CONTROLES DE CANTIDAD + / - -->
+      <div class="modal-section-title"><i class="fa-solid fa-bottle-water"></i> Bebidas y Refrescos</div>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+        
+        <div class="sauce-checkbox-label">
+          <div>
+            <strong>Refresco ($25.00)</strong><br>
+            <small style="color:var(--text-muted);">Variedad de sabores bien fríos</small>
+          </div>
+          <div class="stepper-control">
+            <button class="qty-btn" onclick="updateDrinkQty('refresco', -1)">-</button>
+            <span id="qty-refresco">0</span>
+            <button class="qty-btn" onclick="updateDrinkQty('refresco', 1)">+</button>
+          </div>
+        </div>
+
+        <div class="sauce-checkbox-label">
+          <div>
+            <strong>Cerveza ($30.00)</strong><br>
+            <small style="color:var(--text-muted);">Cerveza bien helada</small>
+          </div>
+          <div class="stepper-control">
+            <button class="qty-btn" onclick="updateDrinkQty('cerveza', -1)">-</button>
+            <span id="qty-cerveza">0</span>
+            <button class="qty-btn" onclick="updateDrinkQty('cerveza', 1)">+</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TOTAL CALCULADO DEL PAQUETE CON EXTRAS Y BEBIDAS -->
+      <div class="summary-box" style="margin-bottom:15px;">
+        <div class="summary-row total-row">
+          <span>Precio de este Paquete:</span>
+          <span id="packageTotalText">$0.00</span>
+        </div>
+      </div>
+
+      <button class="btn-send-whatsapp" style="background-color: var(--primary-color);" onclick="confirmPackageAndAdd()">
+        <i class="fa-solid fa-cart-plus"></i> Agregar Paquete al Carrito
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL DEL CARRITO Y PAGO -->
+  <div class="modal-overlay" id="cartModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-receipt"></i> Tu Pedido</h3>
+        <button class="close-btn" onclick="closeCart()">&times;</button>
+      </div>
+
+      <div id="cartItemsContainer"></div>
+
+      <!-- DATOS DE ENTREGA DEL CLIENTE -->
+      <div class="option-group">
+        <label><i class="fa-solid fa-user"></i> Nombre Completo:</label>
+        <input type="text" id="clientName" placeholder="Ej. Juan Pérez">
+      </div>
+
+      <div class="option-group">
+        <label><i class="fa-solid fa-truck-ramping"></i> Tipo de Entrega:</label>
+        <select id="deliveryType" onchange="updateCalculations()">
+          <option value="domicilio_guadalupana">A Domicilio (Dentro de La Guadalupana)</option>
+          <option value="domicilio_fuera">A Domicilio (Fuera de La Guadalupana)</option>
+          <option value="local">Pasar a recoger al local</option>
+        </select>
+      </div>
+
+      <div class="option-group" id="addressGroup">
+        <label><i class="fa-solid fa-location-dot"></i> Calle y Número:</label>
+        <input type="text" id="clientAddress" placeholder="Ej. Calle 5 de Mayo #123">
+      </div>
+
+      <div class="option-group" id="referenceGroup">
+        <label><i class="fa-solid fa-map-pin"></i> Referencias de la Vivienda:</label>
+        <input type="text" id="clientReference" placeholder="Ej. Fachada azul, junto a la tienda de abarrotes">
+      </div>
+
+      <!-- MÉTODO DE PAGO -->
+      <div class="option-group">
+        <label><i class="fa-solid fa-wallet"></i> Método de Pago:</label>
+        <select id="paymentMethod">
+          <option value="Efectivo">Efectivo</option>
+          <option value="Transferencia">Transferencia Bancaria</option>
+        </select>
+      </div>
+
+      <!-- DESGLOSE DE COSTOS -->
+      <div class="summary-box">
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span id="subtotalText">$0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Costo de Envío:</span>
+          <span id="shippingText">$0.00</span>
+        </div>
+        <div class="summary-row total-row">
+          <span>Total a Pagar:</span>
+          <span id="totalText">$0.00</span>
+        </div>
+      </div>
+
+      <!-- BOTÓN PARA ENVIAR POR WHATSAPP -->
+      <button class="btn-send-whatsapp" onclick="sendWhatsAppOrder()">
+        <i class="fa-brands fa-whatsapp"></i> Enviar Pedido por WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <h3>Hijos del Taco</h3>
+    <p>¡El auténtico sabor del carbón a tu mesa!</p>
+    <p class="footer-address">
+      <i class="fa-solid fa-location-dot" style="color: var(--secondary-color);"></i>
+      Ntra. Sra. de Guadalupe 9-A, San Francisco Totimehuacan, Puebla.
+    </p>
+    
+    <div class="footer-links">
+      <a href="https://www.instagram.com/hijos_del_taco?igsh=MWRlYmk2eWN4c2N5dw%3D%3D" target="_blank" title="Síguenos en Instagram">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+    </div>
+
+    <a href="https://maps.app.goo.gl/yMzrukoqPX2DUPGu9" target="_blank" class="map-btn">
+      <i class="fa-solid fa-map-location-dot"></i> Ver en Google Maps
+    </a>
+  </footer>
+
+  <script>
+    let cart = [];
+    let currentCustomItem = null;
+    const MAX_SAUCES = 3;
+
+    // LISTA DE EXTRAS DE PAQUETES
+    const EXTRAS_LIST = [
+      { name: "Salsa Macha Extra", price: 15 },
+      { name: "Carne Extra", price: 25 },
+      { name: "Extra Guacamole", price: 15 },
+      { name: "Extra Tocino", price: 10 },
+      { name: "Extra Papas", price: 15 },
+      { name: "Extra Queso Mozzarella", price: 10 },
+      { name: "Aderezo Extra", price: 5 },
+      { name: "Cebollitas con Nopales", price: 15 },
+      { name: "Carne 100% Res Extra", price: 15 }
+    ];
+
+    // ESTADO DE PAQUETE ACTUAL
+    let currentPackage = {
+      name: '',
+      basePrice: 0,
+      includes: '',
+      refrescosQty: 0,
+      cervezasQty: 0,
+      selectedExtras: []
+    };
+
+    // CONFIGURACIÓN DE ENVÍO Y CONTACTO (NÚMERO ACTUALIZADO: 2214110338)
+    const WHATSAPP_PHONE = "5212214110338";
+    const TARIFA_DENTRO = 15;
+    const TARIFA_FUERA = 30;
+    const MONTO_ENVIO_GRATIS = 150;
+
+    // --- MODAL DE PAQUETES FAMILIARES ---
+    function openPackageModal(name, basePrice, includesText) {
+      currentPackage = {
+        name: name,
+        basePrice: basePrice,
+        includes: includesText,
+        refrescosQty: 0,
+        cervezasQty: 0,
+        selectedExtras: []
+      };
+
+      document.getElementById('packageModalTitle').innerText = name;
+      document.getElementById('packageIncludesText').innerText = `Incluye: ${includesText}`;
+      
+      document.getElementById('qty-refresco').innerText = '0';
+      document.getElementById('qty-cerveza').innerText = '0';
+
+      const container = document.getElementById('packageExtrasContainer');
+      container.innerHTML = EXTRAS_LIST.map((extra, idx) => `
+        <label class="sauce-checkbox-label">
+          <span>${extra.name} (+$$${extra.price.toFixed(2)})</span>
+          <input type="checkbox" value="${idx}" onchange="togglePackageExtra(${idx}, this.checked)">
+        </label>
+      `).join('');
+
+      calculatePackageTotal();
+      document.getElementById('packageModal').style.display = 'flex';
+    }
+
+    function togglePackageExtra(idx, isChecked) {
+      const extra = EXTRAS_LIST[idx];
+      if (isChecked) {
+        currentPackage.selectedExtras.push(extra);
+      } else {
+        currentPackage.selectedExtras = currentPackage.selectedExtras.filter(e => e.name !== extra.name);
+      }
+      calculatePackageTotal();
+    }
+
+    function updateDrinkQty(type, delta) {
+      if (type === 'refresco') {
+        currentPackage.refrescosQty = Math.max(0, currentPackage.refrescosQty + delta);
+        document.getElementById('qty-refresco').innerText = currentPackage.refrescosQty;
+      } else if (type === 'cerveza') {
+        currentPackage.cervezasQty = Math.max(0, currentPackage.cervezasQty + delta);
+        document.getElementById('qty-cerveza').innerText = currentPackage.cervezasQty;
+      }
+      calculatePackageTotal();
+    }
+
+    function calculatePackageTotal() {
+      let extrasTotal = currentPackage.selectedExtras.reduce((sum, e) => sum + e.price, 0);
+      let drinksTotal = (currentPackage.refrescosQty * 25) + (currentPackage.cervezasQty * 30);
+      let grandTotal = currentPackage.basePrice + extrasTotal + drinksTotal;
+
+      document.getElementById('packageTotalText').innerText = `$${grandTotal.toFixed(2)}`;
+      return grandTotal;
+    }
+
+    function closePackageModal() {
+      document.getElementById('packageModal').style.display = 'none';
+    }
+
+    function confirmPackageAndAdd() {
+      let finalPrice = calculatePackageTotal();
+      let detailsArr = [];
+
+      if (currentPackage.selectedExtras.length > 0) {
+        let extrasStr = currentPackage.selectedExtras.map(e => e.name).join(', ');
+        detailsArr.push(`Extras: ${extrasStr}`);
+      }
+
+      if (currentPackage.refrescosQty > 0) {
+        detailsArr.push(`${currentPackage.refrescosQty}x Refresco(s)`);
+      }
+
+      if (currentPackage.cervezasQty > 0) {
+        detailsArr.push(`${currentPackage.cervezasQty}x Cerveza(s)`);
+      }
+
+      let details = detailsArr.length > 0 ? detailsArr.join(' | ') : 'Sin extras ni bebidas adicionales';
+
+      addToCart(currentPackage.name, finalPrice, details);
+      closePackageModal();
+    }
+
+    // --- MODAL DE ADEREZOS PARA PAPAS/BONELESS/HAMBURGUESA DOBLE ---
+    function openSauceModal(name, price, availableSauces) {
+      currentCustomItem = { name, price, availableSauces };
+      document.getElementById('sauceModalTitle').innerText = name;
+      updateSauceCountText(0);
+      
+      const container = document.getElementById('sauceContainer');
+      container.innerHTML = availableSauces.map(sauce => `
+        <label class="sauce-checkbox-label">
+          <span>${sauce}</span>
+          <input type="checkbox" value="${sauce}" onchange="checkSauceLimit(this)">
+        </label>
+      `).join('');
+
+      document.getElementById('sauceModal').style.display = 'flex';
+    }
+
+    function checkSauceLimit(checkbox) {
+      const checkedBoxes = document.querySelectorAll('#sauceContainer input:checked');
+      if (checkedBoxes.length > MAX_SAUCES) {
+        checkbox.checked = false;
+        alert(`Solo puedes elegir un máximo de ${MAX_SAUCES} aderezos.`);
+      }
+      const finalCount = document.querySelectorAll('#sauceContainer input:checked').length;
+      updateSauceCountText(finalCount);
+    }
+
+    function updateSauceCountText(count) {
+      document.getElementById('sauceCountText').innerText = `Puedes elegir máximo ${MAX_SAUCES} aderezos (${count} de ${MAX_SAUCES} seleccionados)`;
+    }
+
+    function closeSauceModal() {
+      document.getElementById('sauceModal').style.display = 'none';
+      currentCustomItem = null;
+    }
+
+    function confirmSaucesAndAdd() {
+      if (!currentCustomItem) return;
+
+      const checked = Array.from(document.querySelectorAll('#sauceContainer input:checked')).map(cb => cb.value);
+      const sauceText = checked.length > 0 ? checked.join(', ') : 'Sin aderezos adicionales';
+
+      addToCart(currentCustomItem.name, currentCustomItem.price, sauceText);
+      closeSauceModal();
+    }
+
+    // --- MANEJO DEL CARRITO GENERAL ---
+    function addToCart(name, price, details = '') {
+      const existing = cart.find(item => item.name === name && item.details === details);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ name, price, qty: 1, details });
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
+      document.getElementById('cartCount').innerText = totalCount;
+
+      const container = document.getElementById('cartItemsContainer');
+      if (cart.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color:#888; padding: 20px;">Tu carrito está vacío 🌮</p>';
+      } else {
+        container.innerHTML = cart.map((item, index) => `
+          <div class="cart-item">
+            <div>
+              <strong>${item.name}</strong><br>
+              ${item.details ? `<span class="sauce-list"> Detalles: ${item.details}</span>` : ''}
+              <small style="color:#aaa;">$${item.price.toFixed(2)} c/u</small>
+            </div>
+            <div class="item-controls">
+              <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+              <span>${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      updateCalculations();
+    }
+
+    function changeQty(index, delta) {
+      if (cart[index]) {
+        cart[index].qty += delta;
+        if (cart[index].qty <= 0) {
+          cart.splice(index, 1);
+        }
+      }
+      updateCartUI();
+    }
+
+    function updateCalculations() {
+      const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+      const deliveryType = document.getElementById('deliveryType').value;
+      const addressGroup = document.getElementById('addressGroup');
+      const referenceGroup = document.getElementById('referenceGroup');
+
+      if (deliveryType === 'local') {
+        addressGroup.style.display = 'none';
+        referenceGroup.style.display = 'none';
+      } else {
+        addressGroup.style.display = 'block';
+        referenceGroup.style.display = 'block';
+      }
+
+      let shipping = 0;
+      if (deliveryType === 'domicilio_guadalupana') {
+        shipping = subtotal >= MONTO_ENVIO_GRATIS ? 0 : TARIFA_DENTRO;
+      } else if (deliveryType === 'domicilio_fuera') {
+        shipping = subtotal >= MONTO_ENVIO_GRATIS ? 0 : TARIFA_FUERA;
+      } else {
+        shipping = 0;
+      }
+
+      const total = subtotal + shipping;
+
+      document.getElementById('subtotalText').innerText = `$${subtotal.toFixed(2)}`;
+      document.getElementById('shippingText').innerText = shipping === 0 && deliveryType !== 'local' && subtotal > 0 ? '¡GRATIS!' : `$${shipping.toFixed(2)}`;
+      document.getElementById('totalText').innerText = `$${total.toFixed(2)}`;
+    }
+
+    function openCart() {
+      document.getElementById('cartModal').style.display = 'flex';
+    }
+
+    function closeCart() {
+      document.getElementById('cartModal').style.display = 'none';
+    }
+
+    function filterProducts() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.product-card');
+
+      cards.forEach(card => {
+        const name = card.getAttribute('data-name') ? card.getAttribute('data-name').toLowerCase() : '';
+        if (name.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function sendWhatsAppOrder() {
+      if (cart.length === 0) {
+        alert('Por favor agrega al menos un producto al carrito.');
+        return;
+      }
+
+      const clientName = document.getElementById('clientName').value.trim();
+      const deliverySelect = document.getElementById('deliveryType');
+      const deliveryText = deliverySelect.options[deliverySelect.selectedIndex].text;
+      const deliveryType = deliverySelect.value;
+      const clientAddress = document.getElementById('clientAddress').value.trim();
+      const clientReference = document.getElementById('clientReference').value.trim();
+      const paymentMethod = document.getElementById('paymentMethod').value;
+      
+      const shippingText = document.getElementById('shippingText').innerText;
+      const totalText = document.getElementById('totalText').innerText;
+
+      if (!clientName) {
+        alert('Por favor ingresa tu Nombre Completo.');
+        return;
+      }
+
+      if (deliveryType !== 'local' && (!clientAddress || !clientReference)) {
+        alert('Por favor completa la dirección y referencias para la entrega a domicilio.');
+        return;
+      }
+
+      let msg = `🌮 *¡NUEVO PEDIDO EN HIJOS DEL TACO!* 🌮\n`;
+      msg += `----------------------------------\n`;
+      msg += `👤 *Cliente:* ${clientName}\n`;
+      
+      cart.forEach(item => {
+        msg += `• *${item.qty}x ${item.name}* ($${(item.price * item.qty).toFixed(2)})\n`;
+        if (item.details) {
+          msg += `   └ _${item.details}_\n`;
+        }
+      });
+      
+      msg += `----------------------------------\n`;
+      msg += `📍 *Entrega:* ${deliveryText}\n`;
+      
+      if (deliveryType !== 'local') {
+        msg += `🏠 *Dirección:* ${clientAddress}\n`;
+        msg += `📌 *Referencia:* ${clientReference}\n`;
+      }
+
+      msg += `💵 *Método de Pago:* ${paymentMethod}\n`;
+      msg += `🚚 *Costo Envío:* ${shippingText}\n`;
+      msg += `----------------------------------\n`;
+      msg += `💰 *TOTAL A PAGAR:* ${totalText}\n\n`;
+      msg += `¡Quedo al pendiente para confirmar mi pedido! 😊`;
+
+      const encodedMsg = encodeURIComponent(msg);
+      window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodedMsg}`, '_blank');
+    }
+  </script>
+</body>
+</html>
